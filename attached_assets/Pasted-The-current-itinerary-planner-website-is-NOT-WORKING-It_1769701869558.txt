@@ -1,0 +1,135 @@
+The current itinerary planner website is NOT WORKING.
+It shows "Unauthorized" error while generating itinerary.
+Fix ALL issues and regenerate a FULLY WORKING project.
+
+TECH STACK (STRICT):
+Frontend:
+- HTML
+- CSS
+- Vanilla JavaScript ONLY
+
+Backend:
+- Node.js
+- Express.js
+- NO external auth services
+
+========================
+CRITICAL BUG TO FIX
+========================
+
+1. UNAUTHORIZED ERROR FIX
+- The frontend MUST send auth token with every protected request
+- Backend MUST properly verify token
+- If token exists → allow itinerary generation
+- If token missing → redirect to login (NO crash)
+
+2. AUTH FLOW (MANDATORY)
+- On login success:
+  - Save token in localStorage as "authToken"
+- On every protected fetch():
+  - Send header:
+    Authorization: Bearer <token>
+- Backend middleware must:
+  - Read Authorization header
+  - Allow valid requests
+  - Return clear JSON errors
+
+========================
+HOME PAGE (PUBLIC)
+========================
+- Home page must OPEN without login
+- Show:
+  - ALL destination places (Paris, Goa, Dubai, Manali, London, etc.)
+  - Destination cards with images
+  - Hotels, Flights, Railways sample cards
+  - Map with multiple destination markers
+- Buttons like:
+  - "Start Planning Now"
+  - "Generate Itinerary"
+  MUST:
+  - Check login
+  - Redirect to login if not authenticated
+
+========================
+DESTINATION & MAP REQUIREMENTS
+========================
+
+- ALL destinations must be visible (not just one)
+- Each destination card:
+  - Image
+  - Short description
+  - "View on Map" button
+- Map:
+  - Google Maps embed OR OpenStreetMap iframe
+  - Correct location for EACH destination
+  - Change map when destination clicked
+
+========================
+DASHBOARD (LOGIN REQUIRED)
+========================
+
+- Create New Trip form:
+  - Destination
+  - Dates
+  - Budget
+  - Travellers
+- Generate Itinerary button MUST:
+  - Work after login
+  - Never show "Unauthorized" to valid users
+
+========================
+AI ITINERARY LOGIC
+========================
+
+- Implement AI-style logic:
+  - Day-wise plan
+  - Tourist places
+  - Hotels
+  - Flights
+  - Railways
+- Can be rule-based AI (no paid API required)
+- Must return realistic itinerary data
+
+========================
+BACKEND RULES
+========================
+
+- Express server
+- Routes:
+  POST /signup
+  POST /login
+  POST /generate-itinerary (protected)
+- Auth middleware:
+  - NO infinite unauthorized loops
+  - Proper status codes
+- Use in-memory data or MongoDB
+
+========================
+OUTPUT FORMAT (VERY IMPORTANT)
+========================
+
+1. Show full folder structure
+2. Generate files ONE BY ONE
+3. Provide COMPLETE files:
+   - index.html
+   - login.html
+   - signup.html
+   - dashboard.html
+   - style.css
+   - main.js
+   - server.js
+4. Ensure:
+   - No missing JS links
+   - No dead buttons
+   - No unauthorized errors for logged-in users
+
+========================
+FINAL CHECK BEFORE FINISHING
+========================
+
+- Login works ✔
+- Token stored ✔
+- Token sent in fetch ✔
+- Itinerary generates ✔
+- ALL destinations visible ✔
+- Maps working ✔

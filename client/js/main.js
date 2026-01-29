@@ -47,10 +47,46 @@ document.addEventListener('DOMContentLoaded', () => {
   featureCards.forEach(card => {
     card.addEventListener('click', handleFeatureClick);
   });
+
+  // Destination card clicks
+  const destinationCards = document.querySelectorAll('.destination-card');
+  destinationCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const lat = card.dataset.lat;
+      const lon = card.dataset.lon;
+      const name = card.dataset.name;
+      if (lat && lon) {
+        updateHomeMap(parseFloat(lat), parseFloat(lon), name);
+      }
+    });
+  });
 });
 
+// Helper function to get auth token
+function getAuthToken() {
+  return localStorage.getItem('authToken');
+}
+
+// Helper function for authenticated fetch requests
+async function authFetch(url, options = {}) {
+  const token = getAuthToken();
+  const headers = {
+    'Content-Type': 'application/json',
+    ...options.headers
+  };
+  
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  
+  return fetch(url, {
+    ...options,
+    headers
+  });
+}
+
 function isLoggedIn() {
-  return localStorage.getItem('isLoggedIn') === 'true';
+  return localStorage.getItem('isLoggedIn') === 'true' && getAuthToken();
 }
 
 function checkAuth() {
@@ -111,12 +147,13 @@ async function handleLogin(e) {
     console.log('Login response:', data);
     
     if (res.ok) {
-      // Save login status to localStorage
+      // Save login status and token to localStorage
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('userName', data.name);
       localStorage.setItem('userId', data.id);
+      localStorage.setItem('authToken', data.token);
       
-      console.log('Login successful, redirecting to dashboard');
+      console.log('Login successful, token saved, redirecting to dashboard');
       window.location.href = '/dashboard.html';
     } else {
       showAlert(alertEl, data.message || 'Login failed', 'error');
@@ -181,14 +218,17 @@ function handleLogout(e) {
   e.preventDefault();
   console.log('Logging out...');
   
-  // Clear localStorage
-  localStorage.removeItem('isLoggedIn');
-  localStorage.removeItem('userName');
-  localStorage.removeItem('userId');
+  const token = getAuthToken();
   
-  // Call backend logout
-  fetch('/api/logout', { method: 'POST' })
+  // Call backend logout with token
+  authFetch('/api/logout', { method: 'POST' })
     .finally(() => {
+      // Clear localStorage
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('authToken');
+      
       window.location.href = '/index.html';
     });
 }
@@ -235,12 +275,12 @@ async function handleGenerateItinerary(e) {
     travellers: document.getElementById('travellers').value
   };
 
-  console.log('Sending itinerary request:', formData);
+  console.log('Sending itinerary request with token:', formData);
 
   try {
-    const res = await fetch('/api/generate-itinerary', {
+    // Use authFetch to include Authorization header
+    const res = await authFetch('/api/generate-itinerary', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     });
 
@@ -250,7 +290,13 @@ async function handleGenerateItinerary(e) {
     if (res.ok) {
       displayItinerary(data);
     } else {
-      alert(data.message || 'Failed to generate itinerary');
+      if (res.status === 401) {
+        alert('Session expired. Please login again.');
+        localStorage.clear();
+        window.location.href = '/login.html';
+      } else {
+        alert(data.message || 'Failed to generate itinerary');
+      }
     }
   } catch (err) {
     console.error('Itinerary error:', err);
@@ -267,10 +313,16 @@ function displayItinerary(data) {
   
   resultDiv.style.display = 'block';
   
-  let html = `<h3>Trip to ${data.destination}</h3>
-              <p>Duration: ${data.duration} | Travellers: ${data.travellers}</p>
-              <hr style="margin: 1rem 0">`;
-              
+  let html = `
+    <div class="itinerary-header">
+      <h3>Trip to ${data.destination}</h3>
+      <p>Duration: ${data.duration} | Budget: ${data.budget} | Travellers: ${data.travellers}</p>
+    </div>
+    <hr style="margin: 1rem 0">
+  `;
+  
+  // Day-wise plan
+  html += `<h3>Day-wise Itinerary</h3>`;
   data.plan.forEach(day => {
     html += `
       <div class="day-plan">
@@ -282,7 +334,8 @@ function displayItinerary(data) {
     `;
   });
 
-  html += `<h3>Suggested Hotels</h3><div class="grid" style="margin-bottom: 2rem">`;
+  // Hotels
+  html += `<h3>Recommended Hotels</h3><div class="grid" style="margin-bottom: 2rem">`;
   data.hotels.forEach(hotel => {
     html += `
       <div class="card">
@@ -297,30 +350,110 @@ function displayItinerary(data) {
   });
   html += `</div>`;
 
+  // Flights
+  html += `<h3>Flight Options</h3><div class="grid" style="margin-bottom: 2rem">`;
+  data.flights.forEach(flight => {
+    html += `
+      <div class="card">
+        <div class="card-content">
+          <h4>${flight.airline}</h4>
+          <p>Duration: ${flight.duration}</p>
+          <p>Price: ${flight.price}</p>
+        </div>
+      </div>
+    `;
+  });
+  html += `</div>`;
+
+  // Railways
+  html += `<h3>Train Options</h3><div class="grid" style="margin-bottom: 2rem">`;
+  data.railways.forEach(train => {
+    html += `
+      <div class="card">
+        <div class="card-content">
+          <h4>${train.train}</h4>
+          <p>Duration: ${train.duration}</p>
+          <p>Price: ${train.price}</p>
+        </div>
+      </div>
+    `;
+  });
+  html += `</div>`;
+
   contentDiv.innerHTML = html;
   
-  initMap(data.destination);
+  // Initialize Map with destination coordinates
+  initMap(data.destination, data.coordinates.lat, data.coordinates.lon);
   resultDiv.scrollIntoView({ behavior: 'smooth' });
 }
 
-function initMap(destination) {
+function initMap(destination, lat, lon) {
   const mapContainer = document.getElementById('map');
-  if (mapContainer && !mapContainer._leaflet_id) {
-    const lat = 48.8566;
-    const lon = 2.3522;
-    
-    const map = L.map('map').setView([lat, lon], 13);
-    
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    L.marker([lat, lon]).addTo(map)
-      .bindPopup(`<b>${destination}</b><br>Your Destination`)
-      .openPopup();
-      
-    setTimeout(() => { map.invalidateSize(); }, 100);
+  if (!mapContainer) return;
+  
+  // Clear existing map if any
+  if (mapContainer._leaflet_id) {
+    mapContainer._leaflet_id = null;
+    mapContainer.innerHTML = '';
   }
+  
+  const map = L.map('map').setView([lat, lon], 12);
+  
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  L.marker([lat, lon]).addTo(map)
+    .bindPopup(`<b>${destination}</b><br>Your Destination`)
+    .openPopup();
+    
+  setTimeout(() => { map.invalidateSize(); }, 100);
+}
+
+// Initialize home page map
+function initHomeMap() {
+  const mapContainer = document.getElementById('homeMap');
+  if (!mapContainer || mapContainer._leaflet_id) return;
+  
+  const map = L.map('homeMap').setView([30, 0], 2);
+  
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Add markers for all destinations
+  const destinations = [
+    { name: "Paris", lat: 48.8566, lon: 2.3522 },
+    { name: "Tokyo", lat: 35.6762, lon: 139.6503 },
+    { name: "New York", lat: 40.7128, lon: -74.0060 },
+    { name: "London", lat: 51.5074, lon: -0.1278 },
+    { name: "Dubai", lat: 25.2048, lon: 55.2708 },
+    { name: "Goa", lat: 15.2993, lon: 74.1240 },
+    { name: "Manali", lat: 32.2396, lon: 77.1887 }
+  ];
+
+  destinations.forEach(dest => {
+    L.marker([dest.lat, dest.lon]).addTo(map)
+      .bindPopup(`<b>${dest.name}</b>`);
+  });
+  
+  window.homeMap = map;
+  setTimeout(() => { map.invalidateSize(); }, 100);
+}
+
+function updateHomeMap(lat, lon, name) {
+  if (window.homeMap) {
+    window.homeMap.setView([lat, lon], 10);
+    L.popup()
+      .setLatLng([lat, lon])
+      .setContent(`<b>${name}</b>`)
+      .openOn(window.homeMap);
+  }
+}
+
+// Initialize home map when on index page
+if (window.location.pathname === '/' || window.location.pathname.includes('index.html')) {
+  window.addEventListener('load', initHomeMap);
 }
 
 function showAlert(el, msg, type) {
