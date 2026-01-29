@@ -1,0 +1,110 @@
+Create a COMPLETE and WORKING Itinerary Planner website using:
+
+FRONTEND:
+- HTML5
+- CSS3
+- Vanilla JavaScript ONLY (no React, no frameworks)
+
+BACKEND:
+- Node.js
+- Express.js
+- Simple in-memory storage or MongoDB
+- AI logic (rule-based or OpenAI-style mock)
+
+========================
+CORE REQUIREMENTS
+========================
+
+1. HOME PAGE (PUBLIC – NO LOGIN REQUIRED)
+- Anyone can OPEN and VIEW the home page
+- Home page should SHOW ONLY:
+  - Website intro
+  - Popular destinations (image + name)
+  - Sample hotels, flights, railways cards
+  - Map showing famous destinations
+- IMPORTANT:
+  - Search, itinerary generation, booking buttons
+    SHOULD NOT WORK without login
+  - Clicking any feature should redirect to Login page
+
+2. SIGNUP PAGE
+- Name, Email, Password
+- Frontend validation
+- Backend API to save user
+- Redirect to Login after signup
+
+3. LOGIN PAGE
+- Email, Password
+- After successful login:
+  - Allow access to dashboard
+  - Unlock all features
+
+4. DASHBOARD (LOGIN REQUIRED)
+- Welcome user by name
+- Create Trip Form:
+  - Destination
+  - Start date – End date
+  - Budget
+  - Number of travellers
+- Button: “Generate AI Itinerary”
+
+5. AI ITINERARY FEATURE
+- Use AI logic to generate:
+  - Day-wise travel plan
+  - Places to visit
+  - Hotel suggestions
+  - Flight suggestions
+  - Railway suggestions
+- Use JavaScript AI logic or mock AI response
+- Show results with:
+  - Images
+  - Cards
+  - Google Maps / OpenStreetMap embed
+
+6. SUGGESTIONS SECTION
+- Destination places (with images)
+- Hotels (price, rating)
+- Flights (from-to, price)
+- Railways (train name, duration)
+
+7. MAP INTEGRATION
+- Show map for destination
+- Marker for tourist places
+
+8. BACKEND REQUIREMENTS
+- Express server
+- Auth routes:
+  - POST /signup
+  - POST /login
+- Itinerary route:
+  - POST /generate-itinerary
+- Protect routes so:
+  - Without login → access denied
+
+9. PROJECT STRUCTURE
+/frontend
+  index.html
+  login.html
+  signup.html
+  dashboard.html
+  css/style.css
+  js/main.js
+
+/backend
+  server.js
+  routes/
+  middleware/
+
+10. OUTPUT FORMAT (VERY IMPORTANT)
+- Generate files ONE BY ONE
+- Provide COMPLETE CODE for each file
+- No missing links
+- Beginner-friendly comments
+- Working without errors
+
+RULES:
+- Do NOT use React, Angular, Vue
+- Use ONLY HTML, CSS, JavaScript
+- Home page visible without login
+- Features locked without login
+- Use AI logic for itinerary generation
