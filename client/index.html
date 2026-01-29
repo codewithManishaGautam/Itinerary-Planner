@@ -1,15 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fira+Code:wght@300..700&family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Oxanium:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itinerary Planner</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">TripPlanner AI</a>
+        <nav id="navLinks">
+            <a href="login.html">Login</a>
+            <a href="signup.html" class="btn">Sign Up</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Plan Your Dream Trip in Seconds</h1>
+            <p>AI-powered itineraries tailored to your preferences</p>
+            <br>
+            <a href="login.html" class="btn">Start Planning Now</a>
+        </div>
+
+        <h2 class="section-title">Popular Destinations</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500" alt="Paris">
+                <div class="card-content">
+                    <h3 class="card-title">Paris, France</h3>
+                    <p>The city of love and lights.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=500" alt="Tokyo">
+                <div class="card-content">
+                    <h3 class="card-title">Tokyo, Japan</h3>
+                    <p>A blend of tradition and future.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?w=500" alt="New York">
+                <div class="card-content">
+                    <h3 class="card-title">New York, USA</h3>
+                    <p>The city that never sleeps.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 4rem;">
+            <h2 class="section-title">Features</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>AI Itineraries</h3>
+                        <p>Get day-by-day plans instantly.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Smart Suggestions</h3>
+                        <p>Best hotels and flights for your budget.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Map Integration</h3>
+                        <p>Visualize your trip on interactive maps.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
 </html>
