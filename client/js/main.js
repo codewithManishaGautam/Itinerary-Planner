@@ -1,66 +1,106 @@
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('main.js loaded');
   const path = window.location.pathname;
 
   // Check auth status for protected routes
   if (path.includes('dashboard.html')) {
     checkAuth();
-  } else {
-    // Check if user is logged in to update nav
-    updateNav();
   }
 
-  // Event Listeners
+  // Update navigation based on login status
+  updateNav();
+
+  // Event Listeners for forms
   const loginForm = document.getElementById('loginForm');
-  if (loginForm) loginForm.addEventListener('submit', handleLogin);
+  if (loginForm) {
+    console.log('Login form found');
+    loginForm.addEventListener('submit', handleLogin);
+  }
 
   const signupForm = document.getElementById('signupForm');
-  if (signupForm) signupForm.addEventListener('submit', handleSignup);
+  if (signupForm) {
+    console.log('Signup form found');
+    signupForm.addEventListener('submit', handleSignup);
+  }
 
   const tripForm = document.getElementById('tripForm');
-  if (tripForm) tripForm.addEventListener('submit', handleGenerateItinerary);
-  
+  if (tripForm) {
+    console.log('Trip form found');
+    tripForm.addEventListener('submit', handleGenerateItinerary);
+  }
+
+  // Logout button
   const logoutBtn = document.getElementById('logoutBtn');
-  if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', handleLogout);
+  }
+
+  // Start Planning button on home page
+  const startPlanningBtn = document.getElementById('startPlanningBtn');
+  if (startPlanningBtn) {
+    console.log('Start planning button found');
+    startPlanningBtn.addEventListener('click', handleStartPlanning);
+  }
+
+  // Feature cards that require login
+  const featureCards = document.querySelectorAll('.feature-card');
+  featureCards.forEach(card => {
+    card.addEventListener('click', handleFeatureClick);
+  });
 });
 
-async function checkAuth() {
-  try {
-    const res = await fetch('/api/user');
-    if (!res.ok) {
-      window.location.href = '/login.html';
-    } else {
-      const user = await res.json();
-      const userNameEl = document.getElementById('userName');
-      if (userNameEl) userNameEl.textContent = user.name;
-    }
-  } catch (err) {
+function isLoggedIn() {
+  return localStorage.getItem('isLoggedIn') === 'true';
+}
+
+function checkAuth() {
+  console.log('Checking auth status...');
+  if (!isLoggedIn()) {
+    console.log('Not logged in, redirecting to login');
     window.location.href = '/login.html';
+    return;
+  }
+  
+  // Display user name from localStorage
+  const userName = localStorage.getItem('userName');
+  const userNameEl = document.getElementById('userName');
+  if (userNameEl && userName) {
+    userNameEl.textContent = userName;
   }
 }
 
-async function updateNav() {
-  try {
-    const res = await fetch('/api/user');
-    const navLinks = document.getElementById('navLinks');
-    if (res.ok) {
-      navLinks.innerHTML = `
-        <a href="/dashboard.html">Dashboard</a>
-        <a href="#" id="logoutBtn">Logout</a>
-      `;
-      document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+function updateNav() {
+  const navLinks = document.getElementById('navLinks');
+  if (!navLinks) return;
+
+  if (isLoggedIn()) {
+    const userName = localStorage.getItem('userName') || 'User';
+    navLinks.innerHTML = `
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="#" id="logoutBtn">Logout</a>
+    `;
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', handleLogout);
     }
-  } catch (err) {
-    // Not logged in, keep default links
   }
 }
 
 async function handleLogin(e) {
   e.preventDefault();
-  const email = document.getElementById('email').value;
+  console.log('Login form submitted');
+  
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
-  const alert = document.getElementById('alert');
+  const alertEl = document.getElementById('alert');
+
+  if (!email || !password) {
+    showAlert(alertEl, 'Please fill in all fields', 'error');
+    return;
+  }
 
   try {
+    console.log('Sending login request...');
     const res = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -68,25 +108,52 @@ async function handleLogin(e) {
     });
 
     const data = await res.json();
+    console.log('Login response:', data);
     
     if (res.ok) {
+      // Save login status to localStorage
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userName', data.name);
+      localStorage.setItem('userId', data.id);
+      
+      console.log('Login successful, redirecting to dashboard');
       window.location.href = '/dashboard.html';
     } else {
-      showAlert(alert, data.message, 'error');
+      showAlert(alertEl, data.message || 'Login failed', 'error');
     }
   } catch (err) {
-    showAlert(alert, 'An error occurred', 'error');
+    console.error('Login error:', err);
+    showAlert(alertEl, 'An error occurred. Please try again.', 'error');
   }
 }
 
 async function handleSignup(e) {
   e.preventDefault();
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
+  console.log('Signup form submitted');
+  
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
-  const alert = document.getElementById('alert');
+  const alertEl = document.getElementById('alert');
+
+  // Validation
+  if (!name || !email || !password) {
+    showAlert(alertEl, 'Please fill in all fields', 'error');
+    return;
+  }
+
+  if (password.length < 3) {
+    showAlert(alertEl, 'Password must be at least 3 characters', 'error');
+    return;
+  }
+
+  if (!email.includes('@')) {
+    showAlert(alertEl, 'Please enter a valid email', 'error');
+    return;
+  }
 
   try {
+    console.log('Sending signup request...');
     const res = await fetch('/api/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -94,29 +161,68 @@ async function handleSignup(e) {
     });
 
     const data = await res.json();
+    console.log('Signup response:', data);
     
     if (res.ok) {
-      showAlert(alert, 'Signup successful! Redirecting...', 'success');
+      showAlert(alertEl, 'Account created successfully! Redirecting to login...', 'success');
       setTimeout(() => {
         window.location.href = '/login.html';
       }, 1500);
     } else {
-      showAlert(alert, data.message, 'error');
+      showAlert(alertEl, data.message || 'Signup failed', 'error');
     }
   } catch (err) {
-    showAlert(alert, 'An error occurred', 'error');
+    console.error('Signup error:', err);
+    showAlert(alertEl, 'An error occurred. Please try again.', 'error');
   }
 }
 
-async function handleLogout(e) {
+function handleLogout(e) {
   e.preventDefault();
-  await fetch('/api/logout', { method: 'POST' });
-  window.location.href = '/index.html';
+  console.log('Logging out...');
+  
+  // Clear localStorage
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('userName');
+  localStorage.removeItem('userId');
+  
+  // Call backend logout
+  fetch('/api/logout', { method: 'POST' })
+    .finally(() => {
+      window.location.href = '/index.html';
+    });
+}
+
+function handleStartPlanning(e) {
+  e.preventDefault();
+  console.log('Start planning clicked');
+  
+  if (!isLoggedIn()) {
+    alert('Please login to start planning your trip');
+    window.location.href = '/login.html';
+  } else {
+    window.location.href = '/dashboard.html';
+  }
+}
+
+function handleFeatureClick(e) {
+  if (!isLoggedIn()) {
+    e.preventDefault();
+    alert('Login required to use this feature');
+    window.location.href = '/login.html';
+  }
 }
 
 async function handleGenerateItinerary(e) {
   e.preventDefault();
+  console.log('Generate itinerary form submitted');
   
+  if (!isLoggedIn()) {
+    alert('Please login to generate an itinerary');
+    window.location.href = '/login.html';
+    return;
+  }
+
   const submitBtn = e.target.querySelector('button[type="submit"]');
   submitBtn.disabled = true;
   submitBtn.textContent = 'Generating...';
@@ -129,6 +235,8 @@ async function handleGenerateItinerary(e) {
     travellers: document.getElementById('travellers').value
   };
 
+  console.log('Sending itinerary request:', formData);
+
   try {
     const res = await fetch('/api/generate-itinerary', {
       method: 'POST',
@@ -137,14 +245,16 @@ async function handleGenerateItinerary(e) {
     });
 
     const data = await res.json();
+    console.log('Itinerary response:', data);
     
     if (res.ok) {
       displayItinerary(data);
     } else {
-      alert(data.message);
+      alert(data.message || 'Failed to generate itinerary');
     }
   } catch (err) {
-    alert('Failed to generate itinerary');
+    console.error('Itinerary error:', err);
+    alert('Failed to generate itinerary. Please try again.');
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = 'Generate AI Itinerary';
@@ -157,7 +267,6 @@ function displayItinerary(data) {
   
   resultDiv.style.display = 'block';
   
-  // Render Days
   let html = `<h3>Trip to ${data.destination}</h3>
               <p>Duration: ${data.duration} | Travellers: ${data.travellers}</p>
               <hr style="margin: 1rem 0">`;
@@ -173,7 +282,6 @@ function displayItinerary(data) {
     `;
   });
 
-  // Render Hotels
   html += `<h3>Suggested Hotels</h3><div class="grid" style="margin-bottom: 2rem">`;
   data.hotels.forEach(hotel => {
     html += `
@@ -191,25 +299,14 @@ function displayItinerary(data) {
 
   contentDiv.innerHTML = html;
   
-  // Initialize Map
   initMap(data.destination);
-  
-  // Scroll to results
   resultDiv.scrollIntoView({ behavior: 'smooth' });
 }
 
 function initMap(destination) {
-  // Simple map init centered on arbitrary point for mock
-  // In real app, geocode the destination
   const mapContainer = document.getElementById('map');
   if (mapContainer && !mapContainer._leaflet_id) {
-    // Default to Paris coords for mock if geocoding not implemented
-    // In a real app, use OpenStreetMap Nominatim to search 'destination'
-    
-    // Attempting to use a simple hash of string to pick a "random" location for demo
-    // or just default to London/Paris/NY based on input
-    
-    const lat = 48.8566; // Paris
+    const lat = 48.8566;
     const lon = 2.3522;
     
     const map = L.map('map').setView([lat, lon], 13);
@@ -222,12 +319,12 @@ function initMap(destination) {
       .bindPopup(`<b>${destination}</b><br>Your Destination`)
       .openPopup();
       
-    // Fix map sizing issues
     setTimeout(() => { map.invalidateSize(); }, 100);
   }
 }
 
 function showAlert(el, msg, type) {
+  if (!el) return;
   el.textContent = msg;
   el.className = `alert alert-${type}`;
   el.style.display = 'block';

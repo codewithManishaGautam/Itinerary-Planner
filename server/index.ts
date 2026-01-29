@@ -75,15 +75,36 @@ app.use((req, res, next) => {
     return res.status(status).json({ message });
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  if (process.env.NODE_ENV === "production") {
-    serveStatic(app);
-  } else {
-    const { setupVite } = await import("./vite");
-    await setupVite(httpServer, app);
-  }
+  // Serve static files from client directory
+  const path = await import("path");
+  const express = await import("express");
+  
+  // Serve static CSS and JS files
+  app.use('/css', express.default.static(path.default.resolve(import.meta.dirname, "..", "client", "css")));
+  app.use('/js', express.default.static(path.default.resolve(import.meta.dirname, "..", "client", "js")));
+  
+  // Serve HTML files
+  const clientPath = path.default.resolve(import.meta.dirname, "..", "client");
+  
+  app.get('/', (_req, res) => {
+    res.sendFile(path.default.join(clientPath, "index.html"));
+  });
+  
+  app.get('/index.html', (_req, res) => {
+    res.sendFile(path.default.join(clientPath, "index.html"));
+  });
+  
+  app.get('/login.html', (_req, res) => {
+    res.sendFile(path.default.join(clientPath, "login.html"));
+  });
+  
+  app.get('/signup.html', (_req, res) => {
+    res.sendFile(path.default.join(clientPath, "signup.html"));
+  });
+  
+  app.get('/dashboard.html', (_req, res) => {
+    res.sendFile(path.default.join(clientPath, "dashboard.html"));
+  });
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
   // Other ports are firewalled. Default to 5000 if not specified.
