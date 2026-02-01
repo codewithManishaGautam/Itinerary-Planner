@@ -3,34 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Itinerary Planner</title>
+    <title>Dashboard - TripPlanner AI</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
     <header>
-        <a href="dashboard.html" class="logo">TripPlanner AI</a>
-        <nav id="navLinks">
-            <span style="margin-right: 1rem">Welcome, <span id="userName">User</span></span>
-            <a href="#" id="logoutBtn">Logout</a>
-        </nav>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">✈️</span>
+                TripPlanner AI
+            </a>
+            <nav id="navLinks">
+                <a href="index.html">Explore</a>
+                <span style="color: rgba(255,255,255,0.9); margin-right: 0.5rem;">Welcome, <strong id="userName">User</strong></span>
+                <a href="#" id="logoutBtn" class="btn" style="background: rgba(255,255,255,0.2);">Logout</a>
+            </nav>
+        </div>
     </header>
 
     <div class="container">
-        <div class="trip-form">
-            <h2 class="section-title" style="text-align: left; font-size: 1.5rem">Create New Trip</h2>
+        <div class="trip-form fade-in">
+            <h2 style="margin-bottom: 0.5rem;">🗺️ Plan Your Trip</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Enter your travel details and let AI create the perfect itinerary</p>
+            
             <form id="tripForm">
                 <div class="grid" style="grid-template-columns: 1fr 1fr;">
                     <div class="form-group">
                         <label for="destination">Destination</label>
-                        <input type="text" id="destination" class="form-control" placeholder="e.g. Paris, Tokyo, New York" required>
+                        <input type="text" id="destination" class="form-control" placeholder="e.g. Goa, Manali, Jaipur" required>
                     </div>
                     <div class="form-group">
-                        <label for="budget">Budget</label>
+                        <label for="budget">Budget Level</label>
                         <select id="budget" class="form-control">
-                            <option value="cheap">Budget ($)</option>
-                            <option value="moderate" selected>Moderate ($$)</option>
-                            <option value="luxury">Luxury ($$$)</option>
+                            <option value="cheap">💵 Budget Friendly</option>
+                            <option value="moderate" selected>💰 Moderate</option>
+                            <option value="luxury">💎 Luxury</option>
                         </select>
                     </div>
                 </div>
@@ -44,20 +52,57 @@
                         <input type="date" id="endDate" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="travellers">Travellers</label>
-                        <input type="number" id="travellers" class="form-control" min="1" value="1" required>
+                        <label for="travellers">Number of Travelers</label>
+                        <input type="number" id="travellers" class="form-control" min="1" value="2" required>
                     </div>
                 </div>
-                <button type="submit" class="btn" style="width: 100%; margin-top: 1rem">Generate AI Itinerary</button>
+                <button type="submit" class="btn btn-large btn-accent" style="width: 100%; margin-top: 1rem;">
+                    🤖 Generate AI Itinerary
+                </button>
             </form>
         </div>
 
         <div id="itineraryResult" class="itinerary-result">
-            <h2 class="section-title">Your Itinerary</h2>
+            <h2 class="section-title">Your AI-Generated Itinerary</h2>
             <div id="itineraryContent"></div>
+            <h3 style="margin: 2rem 0 1rem;">📍 Destination Map</h3>
             <div id="map"></div>
         </div>
+
+        <section style="margin-top: 3rem;">
+            <h2 class="section-title">Quick Destination Ideas</h2>
+            <div class="grid">
+                <div class="card feature-card" onclick="document.getElementById('destination').value='Goa'; document.getElementById('destination').focus();" style="cursor: pointer;">
+                    <div class="icon">🏖️</div>
+                    <h3>Goa</h3>
+                    <p>Beaches, nightlife, Portuguese heritage</p>
+                </div>
+                <div class="card feature-card" onclick="document.getElementById('destination').value='Manali'; document.getElementById('destination').focus();" style="cursor: pointer;">
+                    <div class="icon">🏔️</div>
+                    <h3>Manali</h3>
+                    <p>Mountains, adventure, snow</p>
+                </div>
+                <div class="card feature-card" onclick="document.getElementById('destination').value='Jaipur'; document.getElementById('destination').focus();" style="cursor: pointer;">
+                    <div class="icon">🏛️</div>
+                    <h3>Jaipur</h3>
+                    <p>Forts, palaces, rich culture</p>
+                </div>
+                <div class="card feature-card" onclick="document.getElementById('destination').value='Ladakh'; document.getElementById('destination').focus();" style="cursor: pointer;">
+                    <div class="icon">🎯</div>
+                    <h3>Ladakh</h3>
+                    <p>Adventure, monasteries, landscapes</p>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <p>&copy; 2026 TripPlanner AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/main.js"></script>
