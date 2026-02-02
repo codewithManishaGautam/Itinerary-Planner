@@ -6,10 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     checkAuth();
   }
 
-  if (path.includes('admin.html')) {
-    initAdminPanel();
-  }
-
   updateNav();
   initEventListeners();
 
@@ -19,14 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-const defaultDestinations = [
+const destinations = [
   {
     id: 1,
     name: "Goa",
     location: "India",
     category: "beach",
     description: "India's beach paradise with stunning coastline, vibrant nightlife, Portuguese heritage, and water sports. Famous for Baga, Calangute, and Anjuna beaches.",
-    image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600",
     lat: 15.2993,
     lon: 74.1240,
     mapQuery: "Goa+India"
@@ -37,7 +33,7 @@ const defaultDestinations = [
     location: "Himachal Pradesh, India",
     category: "hill-station",
     description: "A stunning hill station in the Himalayas known for snow-capped peaks, adventure sports, ancient temples, and the famous Rohtang Pass.",
-    image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600",
     lat: 32.2396,
     lon: 77.1887,
     mapQuery: "Manali+Himachal+Pradesh"
@@ -48,7 +44,7 @@ const defaultDestinations = [
     location: "Rajasthan, India",
     category: "historical",
     description: "The Pink City with magnificent forts, palaces, and vibrant bazaars. Home to Amber Fort, Hawa Mahal, and City Palace.",
-    image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600",
     lat: 26.9124,
     lon: 75.7873,
     mapQuery: "Jaipur+Rajasthan"
@@ -59,7 +55,7 @@ const defaultDestinations = [
     location: "Uttarakhand, India",
     category: "adventure",
     description: "The yoga capital of the world and adventure hub for white water rafting, bungee jumping, and trekking along the Ganges.",
-    image: "https://images.unsplash.com/photo-1600100397608-e1f2c9f4b8a7?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1545389332-131d6a903994?w=600",
     lat: 30.0869,
     lon: 78.2676,
     mapQuery: "Rishikesh+Uttarakhand"
@@ -70,7 +66,7 @@ const defaultDestinations = [
     location: "India",
     category: "beach",
     description: "Pristine tropical islands with crystal-clear waters, coral reefs, and exotic marine life. Perfect for snorkeling and scuba diving.",
-    image: "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",
     lat: 11.7401,
     lon: 92.6586,
     mapQuery: "Andaman+Islands+India"
@@ -81,7 +77,7 @@ const defaultDestinations = [
     location: "Himachal Pradesh, India",
     category: "hill-station",
     description: "Queen of Hills with colonial architecture, Mall Road, scenic toy train ride, and panoramic Himalayan views.",
-    image: "https://images.unsplash.com/photo-1597074866923-dc0589150358?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1597074866923-dc0589150358?w=600",
     lat: 31.1048,
     lon: 77.1734,
     mapQuery: "Shimla+Himachal+Pradesh"
@@ -92,7 +88,7 @@ const defaultDestinations = [
     location: "Uttar Pradesh, India",
     category: "historical",
     description: "Home to the iconic Taj Mahal, one of the Seven Wonders of the World. Also features Agra Fort and Fatehpur Sikri.",
-    image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600",
     lat: 27.1767,
     lon: 78.0081,
     mapQuery: "Taj+Mahal+Agra"
@@ -103,7 +99,7 @@ const defaultDestinations = [
     location: "India",
     category: "adventure",
     description: "Land of high passes with stunning landscapes, Buddhist monasteries, Pangong Lake, and thrilling mountain roads.",
-    image: "https://images.unsplash.com/photo-1614159102234-09b79a8ed929?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1614159102234-09b79a8ed929?w=600",
     lat: 34.1526,
     lon: 77.5771,
     mapQuery: "Ladakh+India"
@@ -114,7 +110,7 @@ const defaultDestinations = [
     location: "Kerala, India",
     category: "beach",
     description: "Serene network of lagoons, lakes, and canals. Experience houseboat cruises through palm-fringed waterways.",
-    image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600",
     lat: 9.4981,
     lon: 76.3388,
     mapQuery: "Kerala+Backwaters"
@@ -125,7 +121,7 @@ const defaultDestinations = [
     location: "West Bengal, India",
     category: "hill-station",
     description: "Famous for tea gardens, the Darjeeling Himalayan Railway, stunning sunrise views, and colonial charm.",
-    image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1622308644420-b20142d38e1c?w=600",
     lat: 27.0410,
     lon: 88.2663,
     mapQuery: "Darjeeling+West+Bengal"
@@ -136,7 +132,7 @@ const defaultDestinations = [
     location: "Uttar Pradesh, India",
     category: "historical",
     description: "One of the world's oldest living cities. Spiritual capital of India with ancient ghats, temples, and Ganga Aarti.",
-    image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=600",
     lat: 25.3176,
     lon: 82.9739,
     mapQuery: "Varanasi+Ghats"
@@ -147,7 +143,7 @@ const defaultDestinations = [
     location: "Himachal Pradesh, India",
     category: "adventure",
     description: "A cold desert mountain valley with ancient monasteries, dramatic landscapes, and stargazing opportunities.",
-    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1626015365107-aa76c7f8d9ab?w=600",
     lat: 32.2464,
     lon: 78.0349,
     mapQuery: "Spiti+Valley"
@@ -158,7 +154,7 @@ const defaultDestinations = [
     location: "India",
     category: "beach",
     description: "Former French colony with charming colonial architecture, pristine beaches, and the spiritual Auroville township.",
-    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=600",
     lat: 11.9416,
     lon: 79.8083,
     mapQuery: "Pondicherry+India"
@@ -169,7 +165,7 @@ const defaultDestinations = [
     location: "Tamil Nadu, India",
     category: "hill-station",
     description: "Queen of Nilgiris with botanical gardens, tea estates, and the famous Nilgiri Mountain Railway.",
-    image: "https://images.unsplash.com/photo-1585136917228-04accf859fc4?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1574480344303-e9c97f5ee665?w=600",
     lat: 11.4102,
     lon: 76.6950,
     mapQuery: "Ooty+Tamil+Nadu"
@@ -180,7 +176,7 @@ const defaultDestinations = [
     location: "Karnataka, India",
     category: "historical",
     description: "UNESCO World Heritage Site with stunning ruins of the Vijayanagara Empire, boulder-strewn landscape, and ancient temples.",
-    image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1600100397608-e1f2c9f4b8a7?w=600",
     lat: 15.3350,
     lon: 76.4600,
     mapQuery: "Hampi+Karnataka"
@@ -191,27 +187,13 @@ const defaultDestinations = [
     location: "Uttarakhand, India",
     category: "adventure",
     description: "India's oldest national park, home to Bengal tigers, elephants, and diverse wildlife. Perfect for jungle safaris.",
-    image: "https://images.unsplash.com/photo-1549366021-9f761d450615?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600",
     lat: 29.5300,
     lon: 78.7747,
     mapQuery: "Jim+Corbett+National+Park"
   }
 ];
 
-function getDestinations() {
-  const stored = localStorage.getItem('destinations');
-  if (stored) {
-    return JSON.parse(stored);
-  }
-  localStorage.setItem('destinations', JSON.stringify(defaultDestinations));
-  return defaultDestinations;
-}
-
-function saveDestinations(destinations) {
-  localStorage.setItem('destinations', JSON.stringify(destinations));
-}
-
-let destinations = getDestinations();
 let currentFilter = 'all';
 let searchQuery = '';
 let homeMap = null;
@@ -287,7 +269,6 @@ function renderDestinations() {
   const noResults = document.getElementById('noResults');
   if (!grid) return;
 
-  destinations = getDestinations();
   let filtered = destinations;
 
   if (currentFilter !== 'all') {
@@ -313,7 +294,7 @@ function renderDestinations() {
   grid.innerHTML = filtered.map(dest => `
     <div class="card destination-card slide-up" data-id="${dest.id}" onclick="openDestinationModal(${dest.id})">
       <div class="card-image">
-        <img src="${dest.image}" alt="${dest.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&h=400&fit=crop'">
+        <img src="${dest.image}" alt="${dest.name}" loading="lazy">
         <span class="card-category ${dest.category}">${formatCategory(dest.category)}</span>
       </div>
       <div class="card-content">
@@ -345,14 +326,10 @@ function formatCategory(category) {
 }
 
 function openDestinationModal(id) {
-  destinations = getDestinations();
   const dest = destinations.find(d => d.id === id);
   if (!dest) return;
 
   document.getElementById('modalImage').src = dest.image;
-  document.getElementById('modalImage').onerror = function() {
-    this.src = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&h=400&fit=crop';
-  };
   document.getElementById('modalTitle').textContent = dest.name;
   document.getElementById('modalCategory').textContent = formatCategory(dest.category);
   document.getElementById('modalCategory').className = `card-category ${dest.category}`;
@@ -399,11 +376,11 @@ function updateMapMarkers(filteredDestinations) {
     const marker = L.marker([dest.lat, dest.lon])
       .addTo(homeMap)
       .bindPopup(`
-        <div style="text-align: center; min-width: 160px;">
-          <img src="${dest.image}" style="width: 100%; height: 85px; object-fit: cover; border-radius: 6px; margin-bottom: 8px;" onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=300&h=200&fit=crop'">
-          <strong style="font-size: 14px; color: #1a237e;">${dest.name}</strong><br>
-          <small style="color: #607d8b;">${dest.location}</small><br>
-          <a href="https://www.google.com/maps/search/?api=1&query=${dest.mapQuery}" target="_blank" style="color: #1e88e5; font-size: 12px; font-weight: 500;">Open in Google Maps</a>
+        <div style="text-align: center; min-width: 150px;">
+          <img src="${dest.image}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;">
+          <strong style="font-size: 14px;">${dest.name}</strong><br>
+          <small style="color: #666;">${dest.location}</small><br>
+          <a href="https://www.google.com/maps/search/?api=1&query=${dest.mapQuery}" target="_blank" style="color: #2563eb; font-size: 12px;">Open in Google Maps</a>
         </div>
       `);
     
@@ -437,10 +414,6 @@ function isLoggedIn() {
   return localStorage.getItem('isLoggedIn') === 'true' && getAuthToken();
 }
 
-function isAdmin() {
-  return localStorage.getItem('isAdmin') === 'true';
-}
-
 function checkAuth() {
   if (!isLoggedIn()) {
     window.location.href = '/login.html';
@@ -460,11 +433,9 @@ function updateNav() {
 
   if (isLoggedIn()) {
     const userName = localStorage.getItem('userName') || 'User';
-    let adminLink = isAdmin() ? '<a href="/admin.html">Admin Panel</a>' : '';
     navLinks.innerHTML = `
       <a href="#destinations">Destinations</a>
       <a href="/dashboard.html">Dashboard</a>
-      ${adminLink}
       <a href="#" id="logoutBtn">Logout</a>
     `;
     const logoutBtn = document.getElementById('logoutBtn');
@@ -486,17 +457,6 @@ async function handleLogin(e) {
     return;
   }
 
-  if (email === 'admin@travel.com' && password === 'admin123') {
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('userName', 'Admin');
-    localStorage.setItem('userId', '0');
-    localStorage.setItem('authToken', 'admin-token-' + Date.now());
-    localStorage.setItem('isAdmin', 'true');
-    showAlert(alertEl, 'Welcome Admin! Redirecting...', 'success');
-    setTimeout(() => window.location.href = '/admin.html', 1000);
-    return;
-  }
-
   try {
     const res = await fetch('/api/login', {
       method: 'POST',
@@ -511,7 +471,6 @@ async function handleLogin(e) {
       localStorage.setItem('userName', data.name);
       localStorage.setItem('userId', data.id);
       localStorage.setItem('authToken', data.token);
-      localStorage.removeItem('isAdmin');
       window.location.href = '/dashboard.html';
     } else {
       showAlert(alertEl, data.message || 'Login failed', 'error');
@@ -624,7 +583,7 @@ async function handleGenerateItinerary(e) {
     alert('Failed to generate itinerary. Please try again.');
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = '🤖 Generate AI Itinerary';
+    submitBtn.textContent = 'Generate AI Itinerary';
   }
 }
 
@@ -641,7 +600,7 @@ function displayItinerary(data) {
     </div>
   `;
   
-  html += `<h3 style="margin: 2rem 0 1rem; color: var(--text-dark);">📋 Day-wise Itinerary</h3>`;
+  html += `<h3 style="margin: 2rem 0 1rem;">📋 Day-wise Itinerary</h3>`;
   data.plan.forEach(day => {
     html += `
       <div class="day-plan">
@@ -653,43 +612,43 @@ function displayItinerary(data) {
     `;
   });
 
-  html += `<h3 style="margin: 2rem 0 1rem; color: var(--text-dark);">🏨 Recommended Hotels</h3><div class="grid">`;
+  html += `<h3 style="margin: 2rem 0 1rem;">🏨 Recommended Hotels</h3><div class="grid">`;
   data.hotels.forEach(hotel => {
     html += `
       <div class="card">
-        <img src="${hotel.image}" alt="${hotel.name}" style="height: 180px; width: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500'">
+        <img src="${hotel.image}" alt="${hotel.name}" style="height: 180px;">
         <div class="card-content">
-          <h4 style="color: var(--text-dark);">${hotel.name}</h4>
-          <p style="color: var(--golden-yellow);">⭐ ${hotel.rating}</p>
-          <p style="font-weight: 600; color: var(--primary-blue);"><strong>${hotel.price}</strong></p>
+          <h4>${hotel.name}</h4>
+          <p>⭐ ${hotel.rating}</p>
+          <p><strong>${hotel.price}</strong></p>
         </div>
       </div>
     `;
   });
   html += `</div>`;
 
-  html += `<h3 style="margin: 2rem 0 1rem; color: var(--text-dark);">✈️ Flight Options</h3><div class="grid">`;
+  html += `<h3 style="margin: 2rem 0 1rem;">✈️ Flight Options</h3><div class="grid">`;
   data.flights.forEach(flight => {
     html += `
       <div class="card">
         <div class="card-content" style="text-align: center; padding: 2rem;">
-          <h4 style="color: var(--text-dark);">${flight.airline}</h4>
-          <p style="color: var(--text-secondary);">⏱️ ${flight.duration}</p>
-          <p style="font-size: 1.5rem; color: var(--primary-blue); font-weight: 700;">${flight.price}</p>
+          <h4>${flight.airline}</h4>
+          <p>⏱️ ${flight.duration}</p>
+          <p style="font-size: 1.5rem; color: var(--primary-color);"><strong>${flight.price}</strong></p>
         </div>
       </div>
     `;
   });
   html += `</div>`;
 
-  html += `<h3 style="margin: 2rem 0 1rem; color: var(--text-dark);">🚂 Train Options</h3><div class="grid">`;
+  html += `<h3 style="margin: 2rem 0 1rem;">🚂 Train Options</h3><div class="grid">`;
   data.railways.forEach(train => {
     html += `
       <div class="card">
         <div class="card-content" style="text-align: center; padding: 2rem;">
-          <h4 style="color: var(--text-dark);">${train.train}</h4>
-          <p style="color: var(--text-secondary);">⏱️ ${train.duration}</p>
-          <p style="font-size: 1.5rem; color: var(--fresh-green); font-weight: 700;">${train.price}</p>
+          <h4>${train.train}</h4>
+          <p>⏱️ ${train.duration}</p>
+          <p style="font-size: 1.5rem; color: var(--primary-color);"><strong>${train.price}</strong></p>
         </div>
       </div>
     `;
@@ -730,98 +689,4 @@ function showAlert(el, msg, type) {
   el.style.display = 'block';
 }
 
-function initAdminPanel() {
-  if (!isLoggedIn() || !isAdmin()) {
-    window.location.href = '/login.html';
-    return;
-  }
-
-  renderAdminDestinations();
-
-  const addForm = document.getElementById('addDestinationForm');
-  if (addForm) {
-    addForm.addEventListener('submit', handleAddDestination);
-  }
-
-  const imageInput = document.getElementById('destImage');
-  if (imageInput) {
-    imageInput.addEventListener('input', (e) => {
-      const preview = document.getElementById('imagePreview');
-      if (preview && e.target.value) {
-        preview.innerHTML = `<img src="${e.target.value}" onerror="this.parentElement.innerHTML='Invalid image URL'">`;
-      }
-    });
-  }
-}
-
-function renderAdminDestinations() {
-  const list = document.getElementById('destinationList');
-  if (!list) return;
-
-  destinations = getDestinations();
-
-  list.innerHTML = destinations.map(dest => `
-    <div class="destination-list-item">
-      <img src="${dest.image}" alt="${dest.name}" onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=200&h=150&fit=crop'">
-      <div class="info">
-        <h4>${dest.name}</h4>
-        <p>${dest.location} - ${formatCategory(dest.category)}</p>
-      </div>
-      <div class="actions">
-        <button class="btn btn-small btn-delete" onclick="deleteDestination(${dest.id})">🗑️</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function handleAddDestination(e) {
-  e.preventDefault();
-  
-  const name = document.getElementById('destName').value.trim();
-  const location = document.getElementById('destLocation').value.trim();
-  const category = document.getElementById('destCategory').value;
-  const description = document.getElementById('destDescription').value.trim();
-  const image = document.getElementById('destImage').value.trim();
-  const lat = parseFloat(document.getElementById('destLat').value) || 20.5937;
-  const lon = parseFloat(document.getElementById('destLon').value) || 78.9629;
-
-  if (!name || !location || !category || !description) {
-    alert('Please fill in all required fields');
-    return;
-  }
-
-  destinations = getDestinations();
-  const newId = Math.max(...destinations.map(d => d.id), 0) + 1;
-  
-  const newDest = {
-    id: newId,
-    name,
-    location,
-    category,
-    description,
-    image: image || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&h=400&fit=crop',
-    lat,
-    lon,
-    mapQuery: encodeURIComponent(`${name}+${location}`)
-  };
-
-  destinations.push(newDest);
-  saveDestinations(destinations);
-
-  alert('Destination added successfully!');
-  e.target.reset();
-  document.getElementById('imagePreview').innerHTML = 'Image preview will appear here';
-  renderAdminDestinations();
-}
-
-function deleteDestination(id) {
-  if (!confirm('Are you sure you want to delete this destination?')) return;
-  
-  destinations = getDestinations();
-  destinations = destinations.filter(d => d.id !== id);
-  saveDestinations(destinations);
-  renderAdminDestinations();
-}
-
 window.openDestinationModal = openDestinationModal;
-window.deleteDestination = deleteDestination;
