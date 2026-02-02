@@ -16,19 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const destinations = [
+  // HILL STATIONS
   {
     id: 1,
-    name: "Goa",
-    location: "India",
-    category: "beach",
-    description: "India's beach paradise with stunning coastline, vibrant nightlife, Portuguese heritage, and water sports. Famous for Baga, Calangute, and Anjuna beaches.",
-    image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600",
-    lat: 15.2993,
-    lon: 74.1240,
-    mapQuery: "Goa+India"
-  },
-  {
-    id: 2,
     name: "Manali",
     location: "Himachal Pradesh, India",
     category: "hill-station",
@@ -39,40 +29,7 @@ const destinations = [
     mapQuery: "Manali+Himachal+Pradesh"
   },
   {
-    id: 3,
-    name: "Jaipur",
-    location: "Rajasthan, India",
-    category: "historical",
-    description: "The Pink City with magnificent forts, palaces, and vibrant bazaars. Home to Amber Fort, Hawa Mahal, and City Palace.",
-    image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600",
-    lat: 26.9124,
-    lon: 75.7873,
-    mapQuery: "Jaipur+Rajasthan"
-  },
-  {
-    id: 4,
-    name: "Rishikesh",
-    location: "Uttarakhand, India",
-    category: "adventure",
-    description: "The yoga capital of the world and adventure hub for white water rafting, bungee jumping, and trekking along the Ganges.",
-    image: "https://images.unsplash.com/photo-1545389332-131d6a903994?w=600",
-    lat: 30.0869,
-    lon: 78.2676,
-    mapQuery: "Rishikesh+Uttarakhand"
-  },
-  {
-    id: 5,
-    name: "Andaman Islands",
-    location: "India",
-    category: "beach",
-    description: "Pristine tropical islands with crystal-clear waters, coral reefs, and exotic marine life. Perfect for snorkeling and scuba diving.",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",
-    lat: 11.7401,
-    lon: 92.6586,
-    mapQuery: "Andaman+Islands+India"
-  },
-  {
-    id: 6,
+    id: 2,
     name: "Shimla",
     location: "Himachal Pradesh, India",
     category: "hill-station",
@@ -83,26 +40,72 @@ const destinations = [
     mapQuery: "Shimla+Himachal+Pradesh"
   },
   {
+    id: 3,
+    name: "Darjeeling",
+    location: "West Bengal, India",
+    category: "hill-station",
+    description: "Famous for tea gardens, the Darjeeling Himalayan Railway, stunning sunrise views, and colonial charm.",
+    image: "https://images.unsplash.com/photo-1622308644420-b20142d38e1c?w=600",
+    lat: 27.0410,
+    lon: 88.2663,
+    mapQuery: "Darjeeling+West+Bengal"
+  },
+  {
+    id: 4,
+    name: "Ooty",
+    location: "Tamil Nadu, India",
+    category: "hill-station",
+    description: "Queen of Nilgiris with botanical gardens, tea estates, and the famous Nilgiri Mountain Railway.",
+    image: "https://images.unsplash.com/photo-1574480344303-e9c97f5ee665?w=600",
+    lat: 11.4102,
+    lon: 76.6950,
+    mapQuery: "Ooty+Tamil+Nadu"
+  },
+  {
+    id: 5,
+    name: "Munnar",
+    location: "Kerala, India",
+    category: "hill-station",
+    description: "Lush green tea plantations, misty mountains, and serene atmosphere in the Western Ghats.",
+    image: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?w=600",
+    lat: 10.0889,
+    lon: 77.0595,
+    mapQuery: "Munnar+Kerala"
+  },
+  {
+    id: 6,
+    name: "Nainital",
+    location: "Uttarakhand, India",
+    category: "hill-station",
+    description: "Picturesque lake town surrounded by mountains, famous for Naini Lake and cable car rides.",
+    image: "https://images.unsplash.com/photo-1626714100232-c4c6bbf5e9bc?w=600",
+    lat: 29.3803,
+    lon: 79.4636,
+    mapQuery: "Nainital+Uttarakhand"
+  },
+
+  // BEACHES
+  {
     id: 7,
-    name: "Agra",
-    location: "Uttar Pradesh, India",
-    category: "historical",
-    description: "Home to the iconic Taj Mahal, one of the Seven Wonders of the World. Also features Agra Fort and Fatehpur Sikri.",
-    image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600",
-    lat: 27.1767,
-    lon: 78.0081,
-    mapQuery: "Taj+Mahal+Agra"
+    name: "Goa",
+    location: "India",
+    category: "beach",
+    description: "India's beach paradise with stunning coastline, vibrant nightlife, Portuguese heritage, and water sports. Famous for Baga, Calangute, and Anjuna beaches.",
+    image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=600",
+    lat: 15.2993,
+    lon: 74.1240,
+    mapQuery: "Goa+India"
   },
   {
     id: 8,
-    name: "Ladakh",
+    name: "Andaman Islands",
     location: "India",
-    category: "adventure",
-    description: "Land of high passes with stunning landscapes, Buddhist monasteries, Pangong Lake, and thrilling mountain roads.",
-    image: "https://images.unsplash.com/photo-1614159102234-09b79a8ed929?w=600",
-    lat: 34.1526,
-    lon: 77.5771,
-    mapQuery: "Ladakh+India"
+    category: "beach",
+    description: "Pristine tropical islands with crystal-clear waters, coral reefs, and exotic marine life. Perfect for snorkeling and scuba diving.",
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600",
+    lat: 11.7401,
+    lon: 92.6586,
+    mapQuery: "Andaman+Islands+India"
   },
   {
     id: 9,
@@ -117,39 +120,6 @@ const destinations = [
   },
   {
     id: 10,
-    name: "Darjeeling",
-    location: "West Bengal, India",
-    category: "hill-station",
-    description: "Famous for tea gardens, the Darjeeling Himalayan Railway, stunning sunrise views, and colonial charm.",
-    image: "https://images.unsplash.com/photo-1622308644420-b20142d38e1c?w=600",
-    lat: 27.0410,
-    lon: 88.2663,
-    mapQuery: "Darjeeling+West+Bengal"
-  },
-  {
-    id: 11,
-    name: "Varanasi",
-    location: "Uttar Pradesh, India",
-    category: "historical",
-    description: "One of the world's oldest living cities. Spiritual capital of India with ancient ghats, temples, and Ganga Aarti.",
-    image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=600",
-    lat: 25.3176,
-    lon: 82.9739,
-    mapQuery: "Varanasi+Ghats"
-  },
-  {
-    id: 12,
-    name: "Spiti Valley",
-    location: "Himachal Pradesh, India",
-    category: "adventure",
-    description: "A cold desert mountain valley with ancient monasteries, dramatic landscapes, and stargazing opportunities.",
-    image: "https://images.unsplash.com/photo-1626015365107-aa76c7f8d9ab?w=600",
-    lat: 32.2464,
-    lon: 78.0349,
-    mapQuery: "Spiti+Valley"
-  },
-  {
-    id: 13,
     name: "Puducherry",
     location: "India",
     category: "beach",
@@ -160,29 +130,121 @@ const destinations = [
     mapQuery: "Pondicherry+India"
   },
   {
+    id: 11,
+    name: "Gokarna",
+    location: "Karnataka, India",
+    category: "beach",
+    description: "Peaceful beach town known for pristine Om Beach, temple town vibes, and scenic cliff walks.",
+    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600",
+    lat: 14.5479,
+    lon: 74.3188,
+    mapQuery: "Gokarna+Karnataka"
+  },
+
+  // HERITAGE & CULTURAL
+  {
+    id: 12,
+    name: "Jaipur",
+    location: "Rajasthan, India",
+    category: "heritage",
+    description: "The Pink City with magnificent forts, palaces, and vibrant bazaars. Home to Amber Fort, Hawa Mahal, and City Palace.",
+    image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600",
+    lat: 26.9124,
+    lon: 75.7873,
+    mapQuery: "Jaipur+Rajasthan"
+  },
+  {
+    id: 13,
+    name: "Agra",
+    location: "Uttar Pradesh, India",
+    category: "heritage",
+    description: "Home to the iconic Taj Mahal, one of the Seven Wonders of the World. Also features Agra Fort and Fatehpur Sikri.",
+    image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600",
+    lat: 27.1767,
+    lon: 78.0081,
+    mapQuery: "Taj+Mahal+Agra"
+  },
+  {
     id: 14,
-    name: "Ooty",
-    location: "Tamil Nadu, India",
-    category: "hill-station",
-    description: "Queen of Nilgiris with botanical gardens, tea estates, and the famous Nilgiri Mountain Railway.",
-    image: "https://images.unsplash.com/photo-1574480344303-e9c97f5ee665?w=600",
-    lat: 11.4102,
-    lon: 76.6950,
-    mapQuery: "Ooty+Tamil+Nadu"
+    name: "Varanasi",
+    location: "Uttar Pradesh, India",
+    category: "heritage",
+    description: "One of the world's oldest living cities. Spiritual capital of India with ancient ghats, temples, and Ganga Aarti.",
+    image: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=600",
+    lat: 25.3176,
+    lon: 82.9739,
+    mapQuery: "Varanasi+Ghats"
   },
   {
     id: 15,
     name: "Hampi",
     location: "Karnataka, India",
-    category: "historical",
+    category: "heritage",
     description: "UNESCO World Heritage Site with stunning ruins of the Vijayanagara Empire, boulder-strewn landscape, and ancient temples.",
-    image: "https://images.unsplash.com/photo-1600100397608-e1f2c9f4b8a7?w=600",
+    image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=600",
     lat: 15.3350,
     lon: 76.4600,
     mapQuery: "Hampi+Karnataka"
   },
   {
     id: 16,
+    name: "Udaipur",
+    location: "Rajasthan, India",
+    category: "heritage",
+    description: "City of Lakes with stunning palaces, romantic boat rides on Lake Pichola, and rich Rajasthani culture.",
+    image: "https://images.unsplash.com/photo-1595658658481-d53d3f999875?w=600",
+    lat: 24.5854,
+    lon: 73.7125,
+    mapQuery: "Udaipur+Rajasthan"
+  },
+  {
+    id: 17,
+    name: "Khajuraho",
+    location: "Madhya Pradesh, India",
+    category: "heritage",
+    description: "UNESCO site famous for its stunning medieval Hindu and Jain temples with intricate sculptures.",
+    image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600",
+    lat: 24.8318,
+    lon: 79.9199,
+    mapQuery: "Khajuraho+Temples"
+  },
+
+  // ADVENTURE
+  {
+    id: 18,
+    name: "Rishikesh",
+    location: "Uttarakhand, India",
+    category: "adventure",
+    description: "The yoga capital of the world and adventure hub for white water rafting, bungee jumping, and trekking along the Ganges.",
+    image: "https://images.unsplash.com/photo-1545389332-131d6a903994?w=600",
+    lat: 30.0869,
+    lon: 78.2676,
+    mapQuery: "Rishikesh+Uttarakhand"
+  },
+  {
+    id: 19,
+    name: "Ladakh",
+    location: "India",
+    category: "adventure",
+    description: "Land of high passes with stunning landscapes, Buddhist monasteries, Pangong Lake, and thrilling mountain roads.",
+    image: "https://images.unsplash.com/photo-1614159102234-09b79a8ed929?w=600",
+    lat: 34.1526,
+    lon: 77.5771,
+    mapQuery: "Ladakh+India"
+  },
+  {
+    id: 20,
+    name: "Spiti Valley",
+    location: "Himachal Pradesh, India",
+    category: "adventure",
+    description: "A cold desert mountain valley with ancient monasteries, dramatic landscapes, and stargazing opportunities.",
+    image: "https://images.unsplash.com/photo-1626015365107-aa76c7f8d9ab?w=600",
+    lat: 32.2464,
+    lon: 78.0349,
+    mapQuery: "Spiti+Valley"
+  },
+  {
+    id: 21,
     name: "Jim Corbett",
     location: "Uttarakhand, India",
     category: "adventure",
@@ -191,6 +253,197 @@ const destinations = [
     lat: 29.5300,
     lon: 78.7747,
     mapQuery: "Jim+Corbett+National+Park"
+  },
+  {
+    id: 22,
+    name: "Coorg",
+    location: "Karnataka, India",
+    category: "adventure",
+    description: "Scotland of India with coffee plantations, misty hills, trekking trails, and river rafting at Barapole.",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600",
+    lat: 12.3375,
+    lon: 75.8069,
+    mapQuery: "Coorg+Karnataka"
+  },
+
+  // HONEYMOON / ROMANTIC
+  {
+    id: 23,
+    name: "Maldives",
+    location: "South Asia",
+    category: "honeymoon",
+    description: "Paradise on Earth with overwater villas, crystal-clear turquoise waters, pristine white beaches, and world-class resorts.",
+    image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600",
+    lat: 3.2028,
+    lon: 73.2207,
+    mapQuery: "Maldives"
+  },
+  {
+    id: 24,
+    name: "Santorini",
+    location: "Greece",
+    category: "honeymoon",
+    description: "Iconic white-washed buildings with blue domes, stunning sunsets, romantic cliffside dining, and volcanic beaches.",
+    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600",
+    lat: 36.3932,
+    lon: 25.4615,
+    mapQuery: "Santorini+Greece"
+  },
+  {
+    id: 25,
+    name: "Alleppey",
+    location: "Kerala, India",
+    category: "honeymoon",
+    description: "Venice of the East with romantic houseboat stays on serene backwaters, coconut groves, and tranquil sunsets.",
+    image: "https://images.unsplash.com/photo-1593693411515-c20261bcad6e?w=600",
+    lat: 9.4981,
+    lon: 76.3388,
+    mapQuery: "Alleppey+Kerala"
+  },
+  {
+    id: 26,
+    name: "Andaman & Nicobar",
+    location: "India",
+    category: "honeymoon",
+    description: "Secluded tropical paradise with pristine beaches, romantic sunsets, underwater adventures, and luxury beach resorts.",
+    image: "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=600",
+    lat: 11.7401,
+    lon: 92.6586,
+    mapQuery: "Havelock+Island+Andaman"
+  },
+  {
+    id: 27,
+    name: "Bali",
+    location: "Indonesia",
+    category: "honeymoon",
+    description: "Island of Gods with romantic rice terraces, ancient temples, luxury villas, and breathtaking sunset beaches.",
+    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600",
+    lat: -8.3405,
+    lon: 115.0920,
+    mapQuery: "Bali+Indonesia"
+  },
+
+  // INTERNATIONAL
+  {
+    id: 28,
+    name: "Paris",
+    location: "France",
+    category: "international",
+    description: "The City of Love with the iconic Eiffel Tower, Louvre Museum, charming cafes, and world-class cuisine.",
+    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600",
+    lat: 48.8566,
+    lon: 2.3522,
+    mapQuery: "Paris+France"
+  },
+  {
+    id: 29,
+    name: "Dubai",
+    location: "UAE",
+    category: "international",
+    description: "Futuristic city with the world's tallest building, luxury shopping, desert safaris, and stunning architecture.",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600",
+    lat: 25.2048,
+    lon: 55.2708,
+    mapQuery: "Dubai+UAE"
+  },
+  {
+    id: 30,
+    name: "Switzerland",
+    location: "Europe",
+    category: "international",
+    description: "Alpine paradise with snow-capped mountains, scenic train rides, pristine lakes, and charming villages.",
+    image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=600",
+    lat: 46.8182,
+    lon: 8.2275,
+    mapQuery: "Switzerland"
+  },
+  {
+    id: 31,
+    name: "Singapore",
+    location: "Southeast Asia",
+    category: "international",
+    description: "Modern city-state with futuristic Gardens by the Bay, Marina Bay Sands, amazing street food, and vibrant nightlife.",
+    image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600",
+    lat: 1.3521,
+    lon: 103.8198,
+    mapQuery: "Singapore"
+  },
+  {
+    id: 32,
+    name: "Bangkok",
+    location: "Thailand",
+    category: "international",
+    description: "Vibrant Thai capital with ornate temples, floating markets, delicious street food, and exciting nightlife.",
+    image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600",
+    lat: 13.7563,
+    lon: 100.5018,
+    mapQuery: "Bangkok+Thailand"
+  },
+  {
+    id: 33,
+    name: "Tokyo",
+    location: "Japan",
+    category: "international",
+    description: "Ultra-modern meets traditional with neon-lit streets, ancient temples, cutting-edge technology, and world-famous cuisine.",
+    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600",
+    lat: 35.6762,
+    lon: 139.6503,
+    mapQuery: "Tokyo+Japan"
+  },
+  {
+    id: 34,
+    name: "London",
+    location: "United Kingdom",
+    category: "international",
+    description: "Historic capital with Big Ben, Tower Bridge, Buckingham Palace, world-class museums, and iconic red buses.",
+    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600",
+    lat: 51.5074,
+    lon: -0.1278,
+    mapQuery: "London+UK"
+  },
+  {
+    id: 35,
+    name: "New York",
+    location: "USA",
+    category: "international",
+    description: "The city that never sleeps with Times Square, Statue of Liberty, Central Park, Broadway shows, and iconic skyline.",
+    image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600",
+    lat: 40.7128,
+    lon: -74.0060,
+    mapQuery: "New+York+City"
+  },
+  {
+    id: 36,
+    name: "Sydney",
+    location: "Australia",
+    category: "international",
+    description: "Harbour city famous for the Opera House, Harbour Bridge, beautiful beaches, and vibrant culture.",
+    image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=600",
+    lat: -33.8688,
+    lon: 151.2093,
+    mapQuery: "Sydney+Australia"
+  },
+  {
+    id: 37,
+    name: "Rome",
+    location: "Italy",
+    category: "international",
+    description: "Eternal City with the Colosseum, Vatican City, Trevi Fountain, ancient ruins, and authentic Italian cuisine.",
+    image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600",
+    lat: 41.9028,
+    lon: 12.4964,
+    mapQuery: "Rome+Italy"
+  },
+  {
+    id: 38,
+    name: "Amsterdam",
+    location: "Netherlands",
+    category: "international",
+    description: "Picturesque canal city with world-class museums, tulip gardens, cycling culture, and vibrant nightlife.",
+    image: "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=600",
+    lat: 52.3676,
+    lon: 4.9041,
+    mapQuery: "Amsterdam+Netherlands"
   }
 ];
 
@@ -294,7 +547,7 @@ function renderDestinations() {
   grid.innerHTML = filtered.map(dest => `
     <div class="card destination-card slide-up" data-id="${dest.id}" onclick="openDestinationModal(${dest.id})">
       <div class="card-image">
-        <img src="${dest.image}" alt="${dest.name}" loading="lazy">
+        <img src="${dest.image}" alt="${dest.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600'">
         <span class="card-category ${dest.category}">${formatCategory(dest.category)}</span>
       </div>
       <div class="card-content">
@@ -319,8 +572,10 @@ function formatCategory(category) {
   const labels = {
     'beach': 'Beach',
     'hill-station': 'Hill Station',
-    'historical': 'Historical',
-    'adventure': 'Adventure'
+    'heritage': 'Heritage',
+    'adventure': 'Adventure',
+    'honeymoon': 'Romantic',
+    'international': 'International'
   };
   return labels[category] || category;
 }
@@ -330,6 +585,9 @@ function openDestinationModal(id) {
   if (!dest) return;
 
   document.getElementById('modalImage').src = dest.image;
+  document.getElementById('modalImage').onerror = function() {
+    this.src = 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600';
+  };
   document.getElementById('modalTitle').textContent = dest.name;
   document.getElementById('modalCategory').textContent = formatCategory(dest.category);
   document.getElementById('modalCategory').className = `card-category ${dest.category}`;
@@ -355,7 +613,7 @@ function initHomeMap() {
   const mapContainer = document.getElementById('homeMap');
   if (!mapContainer || mapContainer._leaflet_id) return;
   
-  homeMap = L.map('homeMap').setView([22.5937, 78.9629], 5);
+  homeMap = L.map('homeMap').setView([20, 78], 4);
   
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
@@ -377,7 +635,7 @@ function updateMapMarkers(filteredDestinations) {
       .addTo(homeMap)
       .bindPopup(`
         <div style="text-align: center; min-width: 150px;">
-          <img src="${dest.image}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;">
+          <img src="${dest.image}" style="width: 100%; height: 80px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;" onerror="this.src='https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=300'">
           <strong style="font-size: 14px;">${dest.name}</strong><br>
           <small style="color: #666;">${dest.location}</small><br>
           <a href="https://www.google.com/maps/search/?api=1&query=${dest.mapQuery}" target="_blank" style="color: #2563eb; font-size: 12px;">Open in Google Maps</a>
@@ -595,12 +853,12 @@ function displayItinerary(data) {
   
   let html = `
     <div class="itinerary-header">
-      <h3>✈️ Trip to ${data.destination}</h3>
-      <p>📅 ${data.duration} | 💰 ${data.budget} | 👥 ${data.travellers} travelers</p>
+      <h3>Trip to ${data.destination}</h3>
+      <p>${data.duration} | ${data.budget} | ${data.travellers} travelers</p>
     </div>
   `;
   
-  html += `<h3 style="margin: 2rem 0 1rem;">📋 Day-wise Itinerary</h3>`;
+  html += `<h3 style="margin: 2rem 0 1rem;">Day-wise Itinerary</h3>`;
   data.plan.forEach(day => {
     html += `
       <div class="day-plan">
@@ -612,14 +870,14 @@ function displayItinerary(data) {
     `;
   });
 
-  html += `<h3 style="margin: 2rem 0 1rem;">🏨 Recommended Hotels</h3><div class="grid">`;
+  html += `<h3 style="margin: 2rem 0 1rem;">Recommended Hotels</h3><div class="grid">`;
   data.hotels.forEach(hotel => {
     html += `
       <div class="card">
-        <img src="${hotel.image}" alt="${hotel.name}" style="height: 180px;">
+        <img src="${hotel.image}" alt="${hotel.name}" style="height: 180px;" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500'">
         <div class="card-content">
           <h4>${hotel.name}</h4>
-          <p>⭐ ${hotel.rating}</p>
+          <p>${hotel.rating}</p>
           <p><strong>${hotel.price}</strong></p>
         </div>
       </div>
@@ -627,13 +885,13 @@ function displayItinerary(data) {
   });
   html += `</div>`;
 
-  html += `<h3 style="margin: 2rem 0 1rem;">✈️ Flight Options</h3><div class="grid">`;
+  html += `<h3 style="margin: 2rem 0 1rem;">Flight Options</h3><div class="grid">`;
   data.flights.forEach(flight => {
     html += `
       <div class="card">
         <div class="card-content" style="text-align: center; padding: 2rem;">
           <h4>${flight.airline}</h4>
-          <p>⏱️ ${flight.duration}</p>
+          <p>${flight.duration}</p>
           <p style="font-size: 1.5rem; color: var(--primary-color);"><strong>${flight.price}</strong></p>
         </div>
       </div>
@@ -641,13 +899,13 @@ function displayItinerary(data) {
   });
   html += `</div>`;
 
-  html += `<h3 style="margin: 2rem 0 1rem;">🚂 Train Options</h3><div class="grid">`;
+  html += `<h3 style="margin: 2rem 0 1rem;">Train Options</h3><div class="grid">`;
   data.railways.forEach(train => {
     html += `
       <div class="card">
         <div class="card-content" style="text-align: center; padding: 2rem;">
           <h4>${train.train}</h4>
-          <p>⏱️ ${train.duration}</p>
+          <p>${train.duration}</p>
           <p style="font-size: 1.5rem; color: var(--primary-color);"><strong>${train.price}</strong></p>
         </div>
       </div>

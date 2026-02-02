@@ -453,8 +453,11 @@ nav a.btn:hover {
 
 .card-category.beach { background: #0ea5e9; }
 .card-category.hill-station { background: #10b981; }
+.card-category.heritage { background: #8b5cf6; }
 .card-category.historical { background: #8b5cf6; }
 .card-category.adventure { background: #f59e0b; }
+.card-category.honeymoon { background: #ec4899; }
+.card-category.international { background: #6366f1; }
 
 .card-content {
   padding: 1.5rem;
