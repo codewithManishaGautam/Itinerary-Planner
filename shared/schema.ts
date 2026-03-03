@@ -1,29 +1,26 @@
-import { pgTable, text, serial, integer, boolean } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
-import { z } from "zod";
 
-export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
-  email: text("email").notNull().unique(),
-  password: text("password").notNull(),
-  name: text("name").notNull(),
-});
+  import { pgTable, text, serial, boolean } from "drizzle-orm/pg-core";
+  import { createInsertSchema } from "drizzle-zod";
+  import { z } from "zod";
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  email: true,
-  password: true,
-  name: true,
-});
+  export const users = pgTable("users", {
+    id: serial("id").primaryKey(),
+    name: text("name").notNull(),
+    email: text("email").notNull().unique(),
+    password: text("password").notNull(),
+    isAdmin: boolean("is_admin").default(false),
+  });
 
-export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
+  export const insertUserSchema = createInsertSchema(users).omit({ id: true });
 
-export const generateItinerarySchema = z.object({
-  destination: z.string().min(1),
-  startDate: z.string(),
-  endDate: z.string(),
-  budget: z.string(),
-  travellers: z.coerce.number().min(1),
-});
+  export const generateItinerarySchema = z.object({
+    destination: z.string().min(1, "Destination is required"),
+    startDate: z.string().min(1, "Start date is required"),
+    endDate: z.string().min(1, "End date is required"),
+    budget: z.string().min(1, "Budget is required"),
+    travellers: z.string().min(1, "Number of travellers is required"),
+  });
 
-export type GenerateItineraryRequest = z.infer<typeof generateItinerarySchema>;
+  export type User = typeof users.$inferSelect;
+  export type InsertUser = z.infer<typeof insertUserSchema>;
+  
