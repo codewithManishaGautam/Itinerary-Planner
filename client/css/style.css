@@ -1066,3 +1066,54 @@ footer {
   margin-bottom: 0.5rem;
   color: var(--text-primary);
 }
+
+  :root {
+    --bg-color: #ffffff;
+    --text-color: #1f2937;
+    --card-bg: #ffffff;
+    --header-bg: rgba(255, 255, 255, 0.8);
+    --footer-bg: #1f2937;
+    --border-color: #e5e7eb;
+  }
+
+  body.dark {
+    --bg-color: #0f172a;
+    --text-color: #f1f5f9;
+    --card-bg: #1e293b;
+    --header-bg: rgba(15, 23, 42, 0.8);
+    --footer-bg: #020617;
+    --border-color: #334155;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  header { background-color: var(--header-bg); }
+  .card { background-color: var(--card-bg); border-color: var(--border-color); }
+  footer { background-color: var(--footer-bg); }
+  .modal-content { background-color: var(--card-bg); color: var(--text-color); }
+
+  .dark-mode-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.3s;
+  }
+
+  .dark-mode-toggle:hover {
+    background: rgba(0,0,0,0.05);
+  }
+
+  body.dark .dark-mode-toggle:hover {
+    background: rgba(255,255,255,0.1);
+  }
+  

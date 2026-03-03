@@ -948,3 +948,48 @@ function showAlert(el, msg, type) {
 }
 
 window.openDestinationModal = openDestinationModal;
+
+  // Dark Mode Logic
+  function initDarkMode() {
+    const toggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+    
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add('dark');
+    }
+    
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        if (body.classList.contains('dark')) {
+          localStorage.setItem('darkMode', 'enabled');
+        } else {
+          localStorage.setItem('darkMode', 'disabled');
+        }
+      });
+    }
+  }
+
+  // Simple Admin check (Mock)
+  function checkAdminAccess() {
+    const user = localStorage.getItem('userName');
+    if (user === 'admin' || localStorage.getItem('isAdmin') === 'true') {
+      const nav = document.getElementById('navLinks');
+      if (nav && !document.getElementById('adminLink')) {
+        const adminLink = document.createElement('a');
+        adminLink.href = '#admin-panel';
+        adminLink.id = 'adminLink';
+        adminLink.textContent = 'Admin Panel';
+        adminLink.style.color = '#ef4444';
+        adminLink.style.fontWeight = 'bold';
+        nav.insertBefore(adminLink, nav.firstChild);
+      }
+    }
+  }
+
+  // Initialize on DOM load
+  document.addEventListener('DOMContentLoaded', () => {
+    initDarkMode();
+    checkAdminAccess();
+  });
+  
