@@ -1,46 +1,36 @@
+import { users, type User, type InsertUser } from "@shared/schema";
 
-  import { users, type User, type InsertUser } from "@shared/schema";
+export interface IStorage {
+  getUser(id: number): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
+  createUser(user: InsertUser): Promise<User>;
+}
 
-  export interface IStorage {
-    getUser(id: number): Promise<User | undefined>;
-    getUserByEmail(email: string): Promise<User | undefined>;
-    createUser(user: InsertUser): Promise<User>;
+export class MemStorage implements IStorage {
+  private users: Map<number, User>;
+  private currentId: number;
+
+  constructor() {
+    this.users = new Map();
+    this.currentId = 1;
   }
 
-  export class MemStorage implements IStorage {
-    private users: Map<number, User>;
-    private currentId: number;
-
-    constructor() {
-      this.users = new Map();
-      this.currentId = 2;
-      // Pre-seed admin user
-      this.users.set(1, { 
-        id: 1, 
-        name: "Admin", 
-        email: "admin@tripplanner.ai", 
-        password: "admin", 
-        isAdmin: true 
-      });
-    }
-
-    async getUser(id: number): Promise<User | undefined> {
-      return this.users.get(id);
-    }
-
-    async getUserByEmail(email: string): Promise<User | undefined> {
-      return Array.from(this.users.values()).find(
-        (user) => user.email === email,
-      );
-    }
-
-    async createUser(insertUser: InsertUser): Promise<User> {
-      const id = this.currentId++;
-      const user: User = { ...insertUser, id, isAdmin: false };
-      this.users.set(id, user);
-      return user;
-    }
+  async getUser(id: number): Promise<User | undefined> {
+    return this.users.get(id);
   }
 
-  export const storage = new MemStorage();
-  
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(
+      (user) => user.email === email,
+    );
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const id = this.currentId++;
+    const user: User = { ...insertUser, id };
+    this.users.set(id, user);
+    return user;
+  }
+}
+
+export const storage = new MemStorage();
