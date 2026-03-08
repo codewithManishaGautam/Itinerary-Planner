@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - TripPlanner AI</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">✈️</span>
+                TripPlanner AI
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="form-container fade-in">
+        <h2 class="section-title" style="font-size: 1.75rem;">Create Account</h2>
+        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">Join thousands of happy travelers</p>
+        
+        <div id="alert" class="alert"></div>
+        
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" class="form-control" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Create a strong password" required>
+            </div>
+            <button type="submit" class="btn btn-large" style="width: 100%">Create Account</button>
+        </form>
+        
+        <p style="margin-top: 1.5rem; text-align: center; color: var(--text-secondary);">
+            Already have an account? <a href="login.html" style="color: var(--primary-color); font-weight: 500;">Login</a>
+        </p>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

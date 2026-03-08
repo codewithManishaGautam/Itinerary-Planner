@@ -1,0 +1,174 @@
+TripPlanner AI - Java Spring Boot Project Structure
+====================================================
+
+ROOT DIRECTORY
+├── pom.xml                              Maven project configuration
+├── JAVA_MIGRATION.md                    Migration details
+├── SETUP_JAVA_SPRING_BOOT.md            Setup and troubleshooting
+├── replit.md                            Project documentation
+├── .gitignore                           Git ignore rules (updated for Java)
+│
+├── src/
+│   ├── main/
+│   │   ├── java/com/tripplanner/api/
+│   │   │   ├── TripPlannerApplication.java
+│   │   │   │
+│   │   │   ├── controller/
+│   │   │   │   ├── AuthController.java
+│   │   │   │   ├── ItineraryController.java
+│   │   │   │   └── StaticController.java
+│   │   │   │
+│   │   │   ├── service/
+│   │   │   │   ├── AuthService.java
+│   │   │   │   ├── UserService.java
+│   │   │   │   └── ItineraryService.java
+│   │   │   │
+│   │   │   ├── model/
+│   │   │   │   └── User.java
+│   │   │   │
+│   │   │   ├── dto/
+│   │   │   │   ├── LoginRequest.java
+│   │   │   │   ├── SignupRequest.java
+│   │   │   │   ├── AuthResponse.java
+│   │   │   │   ├── UserDTO.java
+│   │   │   │   ├── GenerateItineraryRequest.java
+│   │   │   │   └── ItineraryResponse.java
+│   │   │   │
+│   │   │   ├── repository/
+│   │   │   │   └── UserRepository.java
+│   │   │   │
+│   │   │   ├── security/
+│   │   │   │   ├── JwtTokenProvider.java
+│   │   │   │   └── JwtAuthenticationFilter.java
+│   │   │   │
+│   │   │   └── config/
+│   │   │       └── SecurityConfig.java
+│   │   │
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       ├── application-prod.properties
+│   │       │
+│   │       └── static/                  (Your frontend files)
+│   │           ├── index.html
+│   │           ├── login.html
+│   │           ├── signup.html
+│   │           ├── dashboard.html
+│   │           ├── css/
+│   │           │   └── style.css
+│   │           ├── js/
+│   │           │   └── main.js
+│   │           └── public/
+│   │               └── (images, assets)
+│   │
+│   └── test/
+│       └── java/                        (Test files)
+│
+├── target/                              (Build output - created by Maven)
+│   ├── classes/
+│   ├── trip-planner-api-1.0.0.jar
+│   └── ...
+│
+├── .local/
+│   └── skills/
+│
+├── client/                              (Original frontend - also in static/)
+│   ├── index.html
+│   ├── login.html
+│   ├── signup.html
+│   ├── dashboard.html
+│   ├── css/
+│   ├── js/
+│   └── public/
+│
+└── node_modules/                        (No longer needed - can be deleted)
+
+API ENDPOINTS SUMMARY
+====================
+
+PUBLIC ENDPOINTS:
+  GET  /                      → Serve index.html
+  GET  /login.html            → Serve login page
+  GET  /signup.html           → Serve signup page
+  GET  /dashboard.html        → Serve dashboard page
+  GET  /css/*, /js/*          → Static CSS/JS files
+  POST /api/signup            → Register new user
+  POST /api/login             → User login (returns JWT)
+
+PROTECTED ENDPOINTS (require Authorization: Bearer <token>):
+  GET  /api/user              → Get current user info
+  POST /api/generate-itinerary → Generate trip itinerary
+  POST /api/logout            → Logout user
+
+DATABASE TABLES
+===============
+
+H2 DATABASE (Development):
+  TABLE: users
+    - id (BIGINT PRIMARY KEY)
+    - email (VARCHAR UNIQUE)
+    - password (VARCHAR)
+    - name (VARCHAR)
+    - created_at (BIGINT)
+
+CONFIGURATION FILES
+===================
+
+application.properties (Development):
+  - H2 in-memory database
+  - Debug logging enabled
+  - CORS for all origins
+  - JWT secret: default value (change in production)
+
+application-prod.properties (Production):
+  - PostgreSQL database
+  - Environment variable configuration
+  - Production logging
+  - JWT secret from env var
+
+IMPORTANT FILES TO KNOW
+=======================
+
+JwtTokenProvider.java        → Token generation/validation
+JwtAuthenticationFilter.java → JWT request authentication
+SecurityConfig.java          → Spring Security setup
+ItineraryService.java        → Itinerary generation logic
+UserRepository.java          → Database user queries
+AuthController.java          → /api/signup, /api/login endpoints
+
+HOW TO RUN
+==========
+
+1. Install Java and Maven in Replit (via Packages panel)
+2. Click "Run" button
+3. Wait for startup (1-3 minutes first time)
+4. Visit https://<your-replit>.replit.dev
+
+HOW TO BUILD FOR PRODUCTION
+============================
+
+mvn clean package -DskipTests -q
+→ Creates: target/trip-planner-api-1.0.0.jar
+
+Then run:
+java -jar target/trip-planner-api-1.0.0.jar --spring.profiles.active=prod
+
+WHAT CHANGED FROM NODE.JS
+==========================
+
+Before (Node.js):
+  - Express.js server
+  - In-memory user storage
+  - Simple token system
+  - npm build system
+
+After (Java):
+  - Spring Boot server
+  - JPA database persistence
+  - JWT token system
+  - Maven build system
+  
+Same:
+  - All frontend files (no changes needed)
+  - API endpoints (same URLs and formats)
+  - User experience (identical)
+  - Itinerary generation logic

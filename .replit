@@ -36,5 +36,5 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm run dev"
+args = "mvn clean spring-boot:run -DskipTests -q"
 waitForPort = 5000

@@ -1,6 +1,16 @@
 node_modules
 dist
+target
 .DS_Store
 server/public
 vite.config.ts.*
 *.tar.gz
+.classpath
+.project
+.settings
+.vscode
+*.class
+*.jar
+*.log
+.idea/
+*.iml

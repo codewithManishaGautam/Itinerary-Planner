@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripPlanner AI - Discover Your Dream Destinations</title>
+    <meta name="description" content="Plan your perfect trip with AI-powered itineraries. Explore beaches, hill stations, historical places, and adventure destinations.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">✈️</span>
+                TripPlanner AI
+            </a>
+            <nav id="navLinks">
+                <a href="#destinations">Destinations</a>
+                <a href="#features">Features</a>
+                <a href="login.html">Login</a>
+                <a href="signup.html" class="btn">Sign Up Free</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Discover Your Perfect Destination</h1>
+                <p>Explore breathtaking beaches, serene hill stations, historic monuments, and thrilling adventures. Let AI plan your dream trip in seconds.</p>
+                <div class="hero-buttons">
+                    <button id="startPlanningBtn" class="btn btn-large btn-accent">Start Planning Now</button>
+                    <a href="#destinations" class="btn btn-large btn-outline">Explore Destinations</a>
+                </div>
+            </div>
+        </div>
+
+        <section class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Destinations</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Happy Travelers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Hotels Listed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4.9</div>
+                <div class="stat-label">User Rating</div>
+            </div>
+        </section>
+
+        <section id="destinations">
+            <h2 class="section-title">Popular Destinations</h2>
+            <p class="section-subtitle">Explore our handpicked destinations across India and beyond. From tranquil beaches to majestic mountains.</p>
+
+            <div class="search-filter-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Search destinations by name or location...">
+                    </div>
+                    <button id="searchBtn" class="btn">Search</button>
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-category="all">
+                        <span class="icon">🌍</span> All
+                    </button>
+                    <button class="filter-btn" data-category="hill-station">
+                        <span class="icon">🏔️</span> Hill Stations
+                    </button>
+                    <button class="filter-btn" data-category="beach">
+                        <span class="icon">🏖️</span> Beaches
+                    </button>
+                    <button class="filter-btn" data-category="heritage">
+                        <span class="icon">🏛️</span> Heritage & Cultural
+                    </button>
+                    <button class="filter-btn" data-category="adventure">
+                        <span class="icon">🎯</span> Adventure
+                    </button>
+                    <button class="filter-btn" data-category="honeymoon">
+                        <span class="icon">💕</span> Romantic
+                    </button>
+                    <button class="filter-btn" data-category="international">
+                        <span class="icon">✈️</span> International
+                    </button>
+                </div>
+            </div>
+
+            <div id="destinationsGrid" class="destinations-grid">
+            </div>
+
+            <div id="noResults" class="no-results" style="display: none;">
+                <div class="icon">🔍</div>
+                <h3>No destinations found</h3>
+                <p>Try adjusting your search or filter criteria</p>
+            </div>
+        </section>
+
+        <h2 class="section-title" style="margin-top: 4rem;">Explore on Map</h2>
+        <p class="section-subtitle">Click on any destination card to see its location on the interactive map</p>
+        <div id="homeMap"></div>
+
+        <section id="features" style="margin-top: 4rem;">
+            <h2 class="section-title">Why Choose TripPlanner AI?</h2>
+            <div class="grid">
+                <div class="card feature-card">
+                    <div class="icon">🤖</div>
+                    <h3>AI-Powered Planning</h3>
+                    <p>Get personalized day-by-day itineraries tailored to your preferences, budget, and travel style.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="icon">🗺️</div>
+                    <h3>Interactive Maps</h3>
+                    <p>Visualize your entire trip on interactive maps with all points of interest and attractions.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="icon">💰</div>
+                    <h3>Budget Friendly</h3>
+                    <p>Find the best deals on hotels, flights, and activities that fit your budget perfectly.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="icon">⭐</div>
+                    <h3>Curated Experiences</h3>
+                    <p>Handpicked destinations and activities reviewed by thousands of happy travelers.</p>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top: 4rem;">
+            <h2 class="section-title">Travel Options</h2>
+            <p class="section-subtitle">Book your perfect journey with our curated travel options</p>
+            <div class="options-grid">
+                <div class="option-card">
+                    <div class="icon">✈️</div>
+                    <h3>Flights</h3>
+                    <p>Compare 100+ airlines worldwide</p>
+                    <div class="price">From ₹2,999</div>
+                </div>
+                <div class="option-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <div class="icon">🚂</div>
+                    <h3>Railways</h3>
+                    <p>Scenic train journeys across India</p>
+                    <div class="price">From ₹499</div>
+                </div>
+                <div class="option-card" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                    <div class="icon">🏨</div>
+                    <h3>Hotels</h3>
+                    <p>5000+ verified properties</p>
+                    <div class="price">From ₹999/night</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span class="logo-icon">✈️</span>
+                        TripPlanner AI
+                    </a>
+                    <p>Your AI-powered travel companion. Plan perfect trips with personalized itineraries, smart recommendations, and real-time travel insights.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Destinations</h4>
+                    <a href="#">Beaches</a>
+                    <a href="#">Hill Stations</a>
+                    <a href="#">Historical Sites</a>
+                    <a href="#">Adventure</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">FAQs</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 TripPlanner AI. All rights reserved. Made with ❤️ for travelers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="destinationModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <img id="modalImage" src="" alt="">
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <span id="modalCategory" class="card-category"></span>
+                <h2 id="modalTitle"></h2>
+                <div class="location" id="modalLocation">
+                    <span>📍</span>
+                    <span id="modalLocationText"></span>
+                </div>
+                <p class="description" id="modalDescription"></p>
+                <iframe id="modalMap" class="map-embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div class="modal-actions">
+                    <a id="modalMapLink" href="#" target="_blank" class="btn map-btn">Open in Google Maps</a>
+                    <button id="modalPlanBtn" class="btn btn-accent">Plan Trip Here</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
