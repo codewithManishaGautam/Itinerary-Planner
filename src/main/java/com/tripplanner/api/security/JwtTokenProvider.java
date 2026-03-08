@@ -12,28 +12,28 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${jwt.secret:your-secret-key-change-this-in-production-environment}")
-    private String jwtSecret;
-
+    private final SecretKey jwtKey;
+    
     @Value("${jwt.expiration:86400000}")
     private long jwtExpirationMs;
 
+    public JwtTokenProvider() {
+        // Generate a secure key for HS512 (at least 512 bits = 64 bytes)
+        this.jwtKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    }
+
     public String generateToken(Long userId) {
-        SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-        
         return Jwts.builder()
                 .subject(userId.toString())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
-                .signWith(key, SignatureAlgorithm.HS512)
+                .signWith(jwtKey, SignatureAlgorithm.HS512)
                 .compact();
     }
 
     public Long getUserIdFromToken(String token) {
-        SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-        
         return Long.parseLong(Jwts.parser()
-                .verifyWith(key)
+                .verifyWith(jwtKey)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()
@@ -42,9 +42,8 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
             Jwts.parser()
-                    .verifyWith(key)
+                    .verifyWith(jwtKey)
                     .build()
                     .parseSignedClaims(token);
             return true;
